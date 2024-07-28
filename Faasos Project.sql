@@ -117,11 +117,11 @@ group by c.roll_id, r.roll_name;
 -- 5) How many veg and non-veg rolls were ordered by each customers?
 select customer_id,
 sum(case 
-		when roll_name = 'Veg Roll' then total_ordered else '' end) as Veg_Roll,
+	when roll_name = 'Veg Roll' then total_ordered else '' end) as Veg_Roll,
 sum(case     
         when roll_name = 'Non Veg Roll' then total_ordered else '' end) as Non_Veg_Roll
 from (
-	   select c.customer_id, r.roll_name, count(c.order_id) as total_ordered
+       select c.customer_id, r.roll_name, count(c.order_id) as total_ordered
        from rolls r
        join customer_orders c on r.roll_id = c.roll_id
        group by c.customer_id, r.roll_name
@@ -146,14 +146,14 @@ limit 1;
 with temp_customer_orders (order_id, customer_id, roll_id, not_include_items, extra_items_included, order_date) as
 (
   select order_id, customer_id, roll_id, 
-         case 
+             case 
 	         when not_include_items is null or not_include_items = '' then 0 
-			 else not_include_items 
-		 end,
-		 case 
-			 when extra_items_included is null or extra_items_included = '' or extra_items_included = 'NaN' then 0 
-             else extra_items_included 
-		 end,
+		 else not_include_items 
+	     end,
+	     case 
+		 when extra_items_included is null or extra_items_included = '' or extra_items_included = 'NaN' then 0 
+                 else extra_items_included 
+	     end,
   order_date
   from customer_orders
   ),
@@ -172,17 +172,15 @@ select customer_id, sum(changes_made) as count_of_rolls_with_at_least_1_change, 
 from (
 		select customer_id, not_include_items, extra_items_included,
 			   case 
-				   when not_include_items = 0 and extra_items_included = 0 then 1
-				   else ''
+			        when not_include_items = 0 and extra_items_included = 0 then 1 else ''      
 			   end as no_changes_made,
 			   case
-				   when not_include_items > 0 or extra_items_included > 0 then 1
-                   else ''
+				when not_include_items > 0 or extra_items_included > 0 then 1 else ''
 			   end as changes_made
 		from temp_customer_orders 
 		where order_id in (
-						   select order_id from temp_driver_order where cancellation = 'Not Cancelled'
-						   )
+				select order_id from temp_driver_order where cancellation = 'Not Cancelled'
+				   )
 		)subquery
 group by customer_id
 order by customer_id;
@@ -203,22 +201,21 @@ from customer_orders
 temp_driver_order (order_id, driver_id, pickup_time, distance, duration, cancellation) as
 (
 select order_id,driver_id,pickup_time,distance,duration,
-		case when
-				 cancellation = 'cancellation'or cancellation ='customer cancellation' then 1 else 0
-			 end
+		case 
+			when cancellation = 'cancellation'or cancellation ='customer cancellation' then 1 else 0
+		 end
 from driver_order
 )
 
 select customer_id, count(exclusions_extras_both) as count_of_rolls
 from (    
-		select customer_id,
-							case 
-								when not_include_items > 0 and extra_items_included > 0 then 1 else ''
-							end as exclusions_extras_both
+		select customer_id, case 
+					when not_include_items > 0 and extra_items_included > 0 then 1 else ''
+					end as exclusions_extras_both
 		from temp_customer_orders
 		where order_id in (    
-							select order_id from temp_driver_order where cancellation = 0
-						   )
+					select order_id from temp_driver_order where cancellation = 0
+				       )
 	   ) subquery
 where exclusions_extras_both > 0
 group by customer_id
