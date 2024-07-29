@@ -5,7 +5,7 @@ OBJECTIVE: Primary objective of this project was to analyze data of faasos, a po
 KEY TABLES AND DATA:
 1) Driver Table : Contains information about drivers and their registration date.
 2) Ingredients Table : Lists various ingredients used in rolls.
-3) Rolls Tsble : Details the types of rolls offered.
+3) Rolls Table : Details the types of rolls offered.
 4) Rolls Receipe Table : Maps Roll IDs to ingredients used.
 5) Driver Order Table : Provides data on delivery timings , distances, durations and cancellations.
 6) Customer Orders Table : Includes customer orders, roll types, special requests and order dates.
@@ -27,9 +27,9 @@ KEY INSIGHTS AND FINDINGS:
 
 DATA CLEANING AND DATA TRANSFORMATION:
 1) Handling Null Values and Blank Spaces : Handled null values and blank spaces with "Case Statement" to ensure that the data remains consistent and complete.
-2) Standardizing Data Formats : Transforming "order_date" column into hourly buckets by concatenating current hour with the next hour and extracted 'day of the week' from "order_date" column by using "dayname" function.
+2) Standardizing Data Formats : Transforming "order_date" column into hourly buckets by concatenating current hour with the next hour and extracted "day of the week" from "order_date" column by using "dayname" function.
 3) Converting Data Types : Converted data type by using "Cast" function.
-4) Data Aggregation : Aggregated data by using "Count", "Sum' , "Avg" functions for meaningful insights.
+4) Data Aggregation : Aggregated data by using "Count", "Sum" , "Avg" functions for meaningful insights.
 
 SQL TECHNIQUES:
 1) Advanced Queries : Used complex queries like CTEs (Common Table Expression), window functions and conditional aggregations.
