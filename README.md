@@ -1,6 +1,6 @@
 # Faasos-Data-Analysis
 
-OBJECTIVE: Primary objective of this project was to analyze data of faasos, a popular food delivery company, to gain insights into customer ordering pattern , delivery performance and overall operational efficiency. The analysis aims to identify key metrics that can help improve serivce quality, optimize delivery processes and enhance customer satisfaction.
+OBJECTIVE: Primary objective of this project was to analyze data of faasos, a popular food delivery company, to gain insights into customer ordering pattern , delivery performance and overall operational efficiency. The analysis aims to identify key metrics that can help improve service quality, optimize delivery processes and enhance customer satisfaction.
 
 KEY TABLES AND DATA:
 1) Driver Table : Contains information about drivers and their registration date.
